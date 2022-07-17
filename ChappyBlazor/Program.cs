@@ -3,13 +3,16 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
-builder.Services.AddSingleton<WeatherForecastService>();
 builder.Services.AddTransient<IDapperDataAccess, DapperDataAccess>((services) =>
 {
     return new DapperDataAccess(
         services.GetRequiredService<IConfiguration>().GetConnectionString("Default"),
         services.GetRequiredService<ILogger<DapperDataAccess>>());
 });
+builder.Services.AddTransient(service => new DataService(
+    new DapperDataAccess(
+        service.GetRequiredService<IConfiguration>().GetConnectionString("Default"),
+        service.GetRequiredService<ILogger<DapperDataAccess>>())));
 
 var app = builder.Build();
 

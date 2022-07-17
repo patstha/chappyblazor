@@ -2,17 +2,22 @@ using DataAccess.Model;
 
 namespace ChappyBlazor.Data
 {
-    public class PersonService
+    public class DataService
     {
         private readonly DapperDataAccess _dataAccess;
-        public PersonService(DapperDataAccess access)
+        public DataService(DapperDataAccess access)
         {
             _dataAccess = access;
         }
         public async Task<List<MyPerson>> GetPersons()
         {
             IEnumerable<MyPerson> persons = await _dataAccess.GetPersons();
-            return persons.ToList<MyPerson>();
+            return persons.ToList();
+        }
+        public async Task<List<MyProgram>> GetPrograms()
+        {
+            IEnumerable<MyProgram> programs = await _dataAccess.GetPrograms();
+            return programs.ToList();
         }
     }
 }

@@ -4,36 +4,78 @@
 
 @using ChappyBlazor.Data
 @using DataAccess.Model
-@inject WeatherForecastService ForecastService
-@inject PersonService Service;
-
+@inject DataService service
 <h1>Weather forecast</h1>
 
 <p>This component demonstrates fetching data from a service.</p>
 
-@if (forecasts == null)
+@if (persons == null)
 {
-    <p><em>Loading...</em></p>
+    <p><em>Loading people...</em></p>
 }
 else
 {
+    <h2>Persons</h2>
     <table class="table">
         <thead>
             <tr>
-                <th>Date</th>
-                <th>Temp. (C)</th>
-                <th>Temp. (F)</th>
-                <th>Summary</th>
+                <th>External ID</th>
+                <th>Legal Name</th>
+                <th>Preferred Name</th>
+                <th>Title</th>
+                <th>Alias</th>
+                <th>Created Date</th>
+                <th>Modified Date</th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var forecast in forecasts)
+            @foreach (var person in persons)
             {
                 <tr>
-                    <td>@forecast.Date.ToShortDateString()</td>
-                    <td>@forecast.TemperatureC</td>
-                    <td>@forecast.TemperatureF</td>
-                    <td>@forecast.Summary</td>
+                    <td>@person.ExternalId</td>
+                    <td>@person.LegalName</td>
+                    <td>@person.PreferredName</td>
+                    <td>@person.Title</td>
+                    <td>@person.Alias</td>
+                    <td>@person.CreatedDate</td>
+                    <td>@person.ModifiedDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+@if (programs == null)
+{
+    <p><em>Loading programs...</em></p>
+}
+else
+{
+    <h2>Programs</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>External ID</th>
+                <th>Summary</th>
+                <th>Description</th>
+                <th>Title</th>
+                <th>Owner</th>
+                <th>Created Date</th>
+                <th>Modified Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var program in programs)
+            {
+                <tr>
+                    <td>@program.ExternalId</td>
+                    <td>@program.Summary</td>
+                    <td>@program.Description</td>
+                    <td>@program.Title</td>
+                    <td>@program.Owner</td>
+                    <td>@program.CreatedDate</td>
+                    <td>@program.ModifiedDate</td>
                 </tr>
             }
         </tbody>
@@ -41,11 +83,13 @@ else
 }
 
 @code {
-    private WeatherForecast[]? forecasts;
     private List<MyPerson> persons = new();
+    private List<MyProgram> programs = new();
 
     protected override async Task OnInitializedAsync()
     {
-        forecasts = await ForecastService.GetForecastAsync(DateTime.Now);
+        persons = await service.GetPersons();
+        programs = await service.GetPrograms();
+
     }
 }
