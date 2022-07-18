@@ -18,13 +18,14 @@ public class DapperDataAccess: IDapperDataAccess
         using NpgsqlConnection connection = new(_connectionString);
         Stopwatch stopwatch = Stopwatch.StartNew();
         IEnumerable<MyPerson> persons = await connection.QueryAsync<MyPerson>(
-            @"select 
+            @"select
                 person.*,
                 createdby.alias as createdbyname, 
                 modifiedby.alias as modifiedbyname
             from myperson person
             left join myperson createdby on createdby.id = person.createdby
             left join myperson modifiedby on modifiedby.id = person.modifiedby
+            limit 200
             ;");
         stopwatch.Stop();
         foreach (MyPerson person in persons)
@@ -40,7 +41,7 @@ public class DapperDataAccess: IDapperDataAccess
         using NpgsqlConnection connection = new(_connectionString);
         Stopwatch stopwatch = Stopwatch.StartNew();
         IEnumerable<MyProgram> programs = await connection.QueryAsync<MyProgram>(
-            @"select 
+            @"select
                 program.*, 
                 owner.alias as ownername, 
                 createdby.alias as createdbyname, 
@@ -49,7 +50,34 @@ public class DapperDataAccess: IDapperDataAccess
             left join myperson owner on owner.id = program.owner
             left join myperson createdby on createdby.id = program.createdby
             left join myperson modifiedby on modifiedby.id = program.modifiedby
+            limit 200
             ;");
+        stopwatch.Stop();
+        foreach (MyProgram program in programs)
+        {
+            program.Stopwatch = stopwatch;
+        }
+        _logger.LogDebug("{methodName} returned {result}", nameof(GetPrograms), JsonConvert.SerializeObject(programs));
+        return programs;
+    }
+
+    public async Task<IEnumerable<MyProgram>> SearchProgramsByTitle(string query)
+    {
+        using NpgsqlConnection connection = new(_connectionString);
+        Stopwatch stopwatch = Stopwatch.StartNew();
+        IEnumerable<MyProgram> programs = await connection.QueryAsync<MyProgram>(
+            @"select
+                program.*, 
+                owner.alias as ownername, 
+                createdby.alias as createdbyname, 
+                modifiedby.alias as modifiedbyname
+            from myprogram program
+            left join myperson owner on owner.id = program.owner
+            left join myperson createdby on createdby.id = program.createdby
+            left join myperson modifiedby on modifiedby.id = program.modifiedby
+            where program.title like concat('%',@query,'%')
+            limit 200
+            ;", new { query = @query });
         stopwatch.Stop();
         foreach (MyProgram program in programs)
         {

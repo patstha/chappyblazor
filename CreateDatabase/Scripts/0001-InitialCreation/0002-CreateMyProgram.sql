@@ -12,8 +12,7 @@ create table myprogram
 	createdby int not null,
 	createddate timestamp with time zone not null default now(),
 	modifiedby int not null default 0,
-	modifieddate timestamp with time zone not null default now(),
-	rowversion timestamp not null
+	modifieddate timestamp with time zone not null default now()
 );
 
 insert into myprogram

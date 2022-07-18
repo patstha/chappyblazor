@@ -1,0 +1,60 @@
+﻿@page "/searchdata"
+
+<PageTitle>Programs Demo</PageTitle>
+
+@using ChappyBlazor.Data
+@using DataAccess.Model
+@using Newtonsoft.Json
+@inject DataService service
+<h1>Search Programs Demo</h1>
+
+<p>This component demonstrates fetching data from a database (limited to top 200 results in this demo for performance reasons)</p>
+
+@if (programs == null)
+{
+    <p><em>Loading programs...</em></p>
+}
+else
+{
+    <h2>Programs</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Title</th>
+                <th>Summary</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var program in programs)
+            {
+                <tr>
+                    <td>@program.Title</td>
+                    <td>@program.Summary</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    if (programs.Count > 0)
+    {
+        <pre style="white-space: pre-wrap;">
+            @JsonConvert.SerializeObject(programs.First(), Formatting.Indented);
+        </pre>
+        <pre>
+            Program results fetched in @programs!.First()!.Stopwatch!.ElapsedMilliseconds milliseconds.
+        </pre>
+    }
+}
+
+
+@code {
+    [Parameter]
+    [SupplyParameterFromQuery]
+    public string? Query { get; set; }
+    private List<MyProgram> programs = new();
+
+    protected override async Task OnInitializedAsync()
+    {
+        programs = await service.SearchProgramByTitle(Query);
+
+    }
+}
