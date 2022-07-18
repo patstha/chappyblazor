@@ -1,4 +1,6 @@
-﻿namespace DataAccess.Model;
+﻿using System.Diagnostics;
+
+namespace DataAccess.Model;
 
 public class MyBaseClass
 {
@@ -9,4 +11,7 @@ public class MyBaseClass
     public DateTime CreatedDate { get; set; }
     public int ModifiedBy { get; set; }
     public DateTime ModifiedDate { get; set; }
+    public string CreatedByName { get; set; } = "";
+    public string ModifiedByName { get; set; } = "";
+    public Stopwatch? Stopwatch { get; set; }
 }
