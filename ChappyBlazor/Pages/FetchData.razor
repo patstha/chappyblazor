@@ -20,9 +20,6 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Title</th>
-                <th>Legal Name</th>
-                <th>Preferred Name</th>
                 <th>Alias</th>
                 <th>Created By</th>
                 <th>Modified By</th>
@@ -32,9 +29,6 @@ else
             @foreach (var person in persons)
             {
                 <tr>
-                    <td>@person.LegalName</td>
-                    <td>@person.PreferredName</td>
-                    <td>@person.Title</td>
                     <td>@person.Alias</td>
                     <td>@person.CreatedByName</td>
                     <td>@person.ModifiedByName</td>
@@ -42,11 +36,12 @@ else
             }
         </tbody>
     </table>
-    <pre style="white-space: pre-wrap;">
-        @JsonConvert.SerializeObject(persons, Formatting.Indented);
-    </pre>
+
     if (persons.Count > 0)
     {
+        <pre style="white-space: pre-wrap;">
+            @JsonConvert.SerializeObject(persons.First(), Formatting.Indented);
+        </pre>
         <pre>
             Person results fetched in @persons!.First()!.Stopwatch!.ElapsedMilliseconds milliseconds.
         </pre>
@@ -64,36 +59,28 @@ else
     <table class="table">
         <thead>
             <tr>
-                <th>Summary</th>
-                <th>Description</th>
                 <th>Title</th>
-                <th>Owner</th>
-                <th>Created Date</th>
-                <th>Modified Date</th>
+                <th>Summary</th>
             </tr>
         </thead>
         <tbody>
             @foreach (var program in programs)
             {
                 <tr>
-                    <td>@program.Summary</td>
-                    <td>@program.Description</td>
                     <td>@program.Title</td>
-                    <td>@program.Owner</td>
-                    <td>@program.CreatedByName</td>
-                    <td>@program.ModifiedByName</td>
+                    <td>@program.Summary</td>
                 </tr>
             }
         </tbody>
     </table>
-    <pre style="white-space: pre-wrap;">
-        @JsonConvert.SerializeObject(programs, Formatting.Indented);
-    </pre>
     if (programs.Count > 0)
     {
-        <pre>
-            Program results fetched in @programs!.First()!.Stopwatch!.ElapsedMilliseconds milliseconds.
+        <pre style="white-space: pre-wrap;">
+            @JsonConvert.SerializeObject(programs.First(), Formatting.Indented);
         </pre>
+        <pre>
+                    Program results fetched in @programs!.First()!.Stopwatch!.ElapsedMilliseconds milliseconds.
+                </pre>
     }
 }
 
