@@ -75,9 +75,9 @@ public class DapperDataAccess: IDapperDataAccess
         left join myperson owner on owner.id = program.owner
         left join myperson createdby on createdby.id = program.createdby
         left join myperson modifiedby on modifiedby.id = program.modifiedby
-        where uper(program.title) like concat('%',@query,'%')
+        where program.title ilike concat('%',@query,'%')
         limit 200
-        ;", new { query = @query.ToUpper() });
+        ;", new { query = @query });
         stopwatch.Stop();
         foreach (MyProgram program in programs)
         {
