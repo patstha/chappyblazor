@@ -24,7 +24,3 @@ On your database server, execute the sql files from the create database project.
 [CreateDatabase\Scripts\0001-InitialCreation\0001-CreateMyPerson.sql](CreateDatabase/Scripts/0001-InitialCreation/0001-CreateMyPerson.sql)
 [CreateDatabase\Scripts\0001-InitialCreation\0002-CreateMyProgram.sql](CreateDatabase/Scripts/0001-InitialCreation/0002-CreateMyProgram.sql)
 
-Provider=PostgreSQL OLE DB Provider;Data Source=;location=xrbmpoui;User ID=xrbmpoui;password=i38x7v1O3aNteoNxteJNB5thtPfKqqxn;
-"Host=;Database=xrbmpoui;User Id=;Password=;"
-
-"Server=hansken.db.elephantsql.com;Port=5432;Userid=xrbmpoui;Password=i38x7v1O3aNteoNxteJNB5thtPfKqqxn;Protocol=3;SSL=TRUE;Pooling=false;MinPoolSize=1;MaxPoolSize=20;Timeout=15;SslMode=Disable;Database=xrbmpoui"
