@@ -10,11 +10,11 @@
 
 <p>This component demonstrates searching data from a database (limited to 200 results in this demo for performance reasons)</p>
 
-<form action="" method="get" class="form-example">
-    <div class="form-title" style="margin-top: 1rem; margin-bottom: 1rem;">
-        <label for="title">Search by title</label>
-        <input type="text" name="query" id="title" required
-               style="width: 100%;" 
+<form action="" method="get" class="form-example mt-4 mb-4">
+    <div class="input-group input-group-lg mt-4 mb-4">
+        <span class="input-group-text" id="query">Search by title</span>
+        <input type="text" class="form-control" name="query"
+               aria-label="Sizing example input" aria-describedby="query"
                autocomplete="off" autofocus>
     </div>
     <div class="form-example">
@@ -50,10 +50,10 @@ else
     {
         <pre style="white-space: pre-wrap;">
             @JsonConvert.SerializeObject(programs.First(), Formatting.Indented);
-                        </pre>
+                                                </pre>
         <pre>
-                            Program results fetched in @programs!.First()!.Stopwatch!.ElapsedMilliseconds milliseconds.
-                        </pre>
+                                                    Program results fetched in @programs!.First()!.Stopwatch!.ElapsedMilliseconds milliseconds.
+                                                </pre>
     }
 }
 
@@ -65,7 +65,7 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        programs = await service.SearchProgramByTitle(Query);
+        programs = await service.SearchProgramByTitle(Query ?? "");
 
     }
 }
