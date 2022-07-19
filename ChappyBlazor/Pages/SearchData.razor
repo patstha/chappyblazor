@@ -8,7 +8,19 @@
 @inject DataService service
 <h1>Search Programs Demo</h1>
 
-<p>This component demonstrates fetching data from a database (limited to 200 results in this demo for performance reasons)</p>
+<p>This component demonstrates searching data from a database (limited to 200 results in this demo for performance reasons)</p>
+
+<form action="" method="get" class="form-example">
+    <div class="form-title" style="margin-top: 1rem; margin-bottom: 1rem;">
+        <label for="title">Search by title</label>
+        <input type="text" name="query" id="title" required
+               style="width: 100%;" 
+               autocomplete="off" autofocus>
+    </div>
+    <div class="form-example">
+        <input type="submit" value="Search!" style="width: 100%;" class="btn btn-primary">
+    </div>
+</form>
 
 @if (programs == null)
 {
@@ -38,13 +50,12 @@ else
     {
         <pre style="white-space: pre-wrap;">
             @JsonConvert.SerializeObject(programs.First(), Formatting.Indented);
-        </pre>
+                        </pre>
         <pre>
-            Program results fetched in @programs!.First()!.Stopwatch!.ElapsedMilliseconds milliseconds.
-        </pre>
+                            Program results fetched in @programs!.First()!.Stopwatch!.ElapsedMilliseconds milliseconds.
+                        </pre>
     }
 }
-
 
 @code {
     [Parameter]
