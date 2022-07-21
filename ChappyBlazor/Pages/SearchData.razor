@@ -1,13 +1,13 @@
 ﻿@page "/searchdata"
 
-<PageTitle>Programs Demo</PageTitle>
+<PageTitle>Programs Demo @Query</PageTitle>
 
 @using ChappyBlazor.Data
 @using DataAccess.Model
 @using Newtonsoft.Json
 @inject DataService service
 @inject Blazor.Analytics.IAnalytics Analytics
-<h1>Search Programs Demo</h1>
+<h1>Search Programs Demo @Query</h1>
 
 <p>This component demonstrates searching data from a database (limited to 200 results in this demo for performance reasons)</p>
 
@@ -16,7 +16,7 @@
         <span class="input-group-text" id="query">Search by title</span>
         <input type="text" class="form-control" name="query"
                aria-label="Sizing example input" aria-describedby="query"
-               autocomplete="off" autofocus="autofocus">
+               autocomplete="off" autofocus="autofocus" value="@Query">
     </div>
     <div class="form-example">
         <input type="submit" value="Search!" style="width: 100%;" class="btn btn-primary">
@@ -29,7 +29,14 @@
 }
 else
 {
-    <h2>Programs</h2>
+    @if (string.IsNullOrWhiteSpace(@Query))
+    {
+        <h2>Search programs</h2>
+    }
+    else
+    {
+        <h2>Search programs for @Query</h2>
+    }
     <table class="table">
         <thead>
             <tr>
@@ -51,10 +58,10 @@ else
     {
         <pre style="white-space: pre-wrap;">
             @JsonConvert.SerializeObject(programs.First(), Formatting.Indented);
-        </pre>
+                </pre>
         <pre>
-            Program results fetched in @programs!.First()!.Stopwatch!.ElapsedMilliseconds milliseconds.
-        </pre>
+                    Program results fetched in @programs!.First()!.Stopwatch!.ElapsedMilliseconds milliseconds.
+                </pre>
     }
 }
 
