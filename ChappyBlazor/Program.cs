@@ -1,3 +1,5 @@
+using Blazor.Analytics;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
@@ -13,7 +15,7 @@ builder.Services.AddTransient(service => new DataService(
     new DapperDataAccess(
         service.GetRequiredService<IConfiguration>().GetConnectionString("Default"),
         service.GetRequiredService<ILogger<DapperDataAccess>>())));
-
+builder.Services.AddGoogleAnalytics("GTM-KN8RD79");
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
