@@ -27,8 +27,9 @@ jobs:
       shell: bash
       env:
         ELEPHANTSQL_CONNECTION_STRING: ${{ secrets.ELEPHANTSQL_CONNECTION_STRING }}
-      run: dotnet user-secrets set "ConnectionStrings:Default" "$ELEPHANTSQL_CONNECTION_STRING" --project "${{ env.WORKING_DIRECTORY }}"
-      run: dotnet user-secrets set "ConnectionStrings:Default" "$ELEPHANTSQL_CONNECTION_STRING" --project "${{ env.TESTING_DIRECTORY }}"
+      run: |
+        dotnet user-secrets set "ConnectionStrings:Default" "$ELEPHANTSQL_CONNECTION_STRING" --project "${{ env.WORKING_DIRECTORY }}"
+        dotnet user-secrets set "ConnectionStrings:Default" "$ELEPHANTSQL_CONNECTION_STRING" --project "${{ env.TESTING_DIRECTORY }}"
     - name: Test
       run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
     - name: Publish
