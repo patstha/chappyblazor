@@ -9,6 +9,7 @@ env:
   CONFIGURATION: Release
   DOTNET_CORE_VERSION: 6.0.x
   WORKING_DIRECTORY: ChappyBlazor
+  TESTING_DIRECTORY: DataAccessTests
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -26,7 +27,8 @@ jobs:
       shell: bash
       env:
         ELEPHANTSQL_CONNECTION_STRING: ${{ secrets.ELEPHANTSQL_CONNECTION_STRING }}
-      run: dotnet user-secrets set "ConnectionStrings:Default" "$ELEPHANTSQL_CONNECTION_STRING"
+      run: dotnet user-secrets set "ConnectionStrings:Default" "$ELEPHANTSQL_CONNECTION_STRING" --project "${{ env.WORKING_DIRECTORY }}"
+      run: dotnet user-secrets set "ConnectionStrings:Default" "$ELEPHANTSQL_CONNECTION_STRING" --project "${{ env.TESTING_DIRECTORY }}"
     - name: Test
       run: dotnet test "${{ env.WORKING_DIRECTORY }}" --no-build
     - name: Publish
