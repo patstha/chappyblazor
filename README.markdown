@@ -24,3 +24,5 @@ On your database server, execute the sql files from the create database project.
 [CreateDatabase\Scripts\0001-InitialCreation\0001-CreateMyPerson.sql](CreateDatabase/Scripts/0001-InitialCreation/0001-CreateMyPerson.sql)
 [CreateDatabase\Scripts\0001-InitialCreation\0002-CreateMyProgram.sql](CreateDatabase/Scripts/0001-InitialCreation/0002-CreateMyProgram.sql)
 
+
+Hi, Dave
